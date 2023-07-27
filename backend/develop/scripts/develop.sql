@@ -1,72 +1,70 @@
-CREATE TABLE  "AGENTS" 
-   (	
-    "AGENT_ID" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT, 
-    "AGENT_NAME" CHAR(40), 
-    "WORKING_AREA" CHAR(35), 
-    "COMMISSION" NUMBER(10,2), 
-    "PHONE_NO" CHAR(15), 
-    "COUNTRY" VARCHAR2(25) 
-	 );
+USE `visualsqleditor`;
 
-INSERT INTO AGENTS VALUES ('Ramasundar', 'Bangalore', '0.15', '077-25814763', '');
-INSERT INTO AGENTS VALUES ('Alex ', 'London', '0.13', '075-12458969', '');
-INSERT INTO AGENTS VALUES ('Alford', 'New York', '0.12', '044-25874365', '');
-INSERT INTO AGENTS VALUES ('Ravi Kumar', 'Bangalore', '0.15', '077-45625874', '');
-INSERT INTO AGENTS VALUES ('Santakumar', 'Chennai', '0.14', '007-22388644', '');
-INSERT INTO AGENTS VALUES ('Lucida', 'San Jose', '0.12', '044-52981425', '');
-INSERT INTO AGENTS VALUES ('Anderson', 'Brisban', '0.13', '045-21447739', '');
-INSERT INTO AGENTS VALUES ('Subbarao', 'Bangalore', '0.14', '077-12346674', '');
-INSERT INTO AGENTS VALUES ('Mukesh', 'Mumbai', '0.11', '029-12358964', '');
-INSERT INTO AGENTS VALUES ('McDen', 'London', '0.15', '078-22255588', '');
-INSERT INTO AGENTS VALUES ('Ivan', 'Torento', '0.15', '008-22544166', '');
-INSERT INTO AGENTS VALUES ('Benjamin', 'Hampshair', '0.11', '008-22536178', '');
+DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS agents;
 
+CREATE TABLE agents (	
+   agent_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   agent_name varchar(90) NOT NULL,
+   working_area varchar(90) NOT NULL,
+   agent_comission decimal(10,2) NOT NULL, 
+   agent_phone varchar(15) NOT NULL,
+   agent_country varchar(25) NULL
+);
 
-CREATE TABLE  "CUSTOMER" 
-   (	
-  "CUST_CODE" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT, 
-	"CUST_NAME" VARCHAR2(40) NOT NULL, 
-	"CUST_CITY" CHAR(35), 
-	"WORKING_AREA" VARCHAR2(35) NOT NULL, 
-	"CUST_COUNTRY" VARCHAR2(20) NOT NULL, 
-	"GRADE" NUMBER, 
-	"OPENING_AMT" NUMBER(12,2) NOT NULL, 
-	"RECEIVE_AMT" NUMBER(12,2) NOT NULL, 
-	"PAYMENT_AMT" NUMBER(12,2) NOT NULL, 
-	"OUTSTANDING_AMT" NUMBER(12,2) NOT NULL, 
-	"PHONE_NO" VARCHAR2(17) NOT NULL, 
-	"AGENT_ID" INTEGER NOT NULL REFERENCES AGENTS.AGENT_ID
-); 
+INSERT INTO agents (agent_name, working_area, agent_comission, agent_phone, agent_country) VALUES ('Ramasundar', 'Bangalore', 0.15, '077-25814763', 'India');
+INSERT INTO agents (agent_name, working_area, agent_comission, agent_phone, agent_country) VALUES ('Alex ', 'London', 0.13, '075-12458969', 'India');
+INSERT INTO agents (agent_name, working_area, agent_comission, agent_phone, agent_country) VALUES ('Alford', 'New York', 0.12, '044-25874365', 'India');
+INSERT INTO agents (agent_name, working_area, agent_comission, agent_phone, agent_country) VALUES ('Ravi Kumar', 'Bangalore', 0.15, '077-45625874', 'India');
+INSERT INTO agents (agent_name, working_area, agent_comission, agent_phone, agent_country) VALUES ('Santakumar', 'Chennai', 0.14, '007-22388644', 'India');
+INSERT INTO agents (agent_name, working_area, agent_comission, agent_phone, agent_country) VALUES ('Lucida', 'San Jose', 0.12, '044-52981425', 'India');
+INSERT INTO agents (agent_name, working_area, agent_comission, agent_phone, agent_country) VALUES ('Anderson', 'Brisban', 0.13, '045-21447739', 'India');
+INSERT INTO agents (agent_name, working_area, agent_comission, agent_phone, agent_country) VALUES ('Subbarao', 'Bangalore', 0.14, '077-12346674', 'India');
+INSERT INTO agents (agent_name, working_area, agent_comission, agent_phone, agent_country) VALUES ('Mukesh', 'Mumbai', 0.11, '029-12358964', 'India');
+INSERT INTO agents (agent_name, working_area, agent_comission, agent_phone, agent_country) VALUES ('McDen', 'London', 0.15, '078-22255588', 'India');
+INSERT INTO agents (agent_name, working_area, agent_comission, agent_phone, agent_country) VALUES ('Ivan', 'Torento', 0.15, '008-22544166', 'India');
+INSERT INTO agents (agent_name, working_area, agent_comission, agent_phone, agent_country) VALUES ('Benjamin', 'Hampshair', 0.11, '008-22536178', 'India');
 
+CREATE TABLE customer (	
+   customer_code int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   customer_name varchar(90) NOT NULL,
+   customer_city varchar(90) NOT NULL,
+   working_area varchar(90) NOT NULL,
+   customer_country varchar(25) NULL,
+   customer_phone varchar(15) NOT NULL,
+   customer_monthly_amount varchar(15) NOT NULL,
+   customer_agent_id int(11) NOT NULL,
+   FOREIGN KEY (customer_agent_id) REFERENCES agents(agent_id)
+);
 
 
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Holmes', 'London', 'London', 'UK', '0774652350', '6000.00', 1);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Micheal', 'New York', 'New York', 'USA', '0774652350', '6500.00', 1);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Albert', 'New York', 'New York', 'USA', '0774652350', '6500.00', 2);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Ravindran', 'Bangalore', 'Bangalore', 'India', '0774652350', '6500.00', 2);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Cook', 'London', 'London', 'UK', '0774652350', '6500.00', 3);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Stuart', 'London', 'London', 'UK', '0774652350', '6500.00', 3);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Bolt', 'New York', 'New York', 'USA', '0774652350', '6500.00', 3);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Fleming', 'Brisban', 'Brisban', 'Australia', '0774652350', '6500.00', 4);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Jacks', 'Brisban', 'Brisban', 'Australia', '0774652350', '6500.00', 4);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Yearannaidu', 'Chennai', 'Chennai', 'India', '0774652350', '6500.00', 3);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Sasikant', 'Mumbai', 'Mumbai', 'India', '0774652350', '7500.00', 3);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Ramanathan', 'Chennai', 'Chennai', 'India', '0774652350', '7500.00', 4);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Avinash', 'Mumbai', 'Mumbai', 'India', '0774652350', '7500.00', 5);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Winston', 'Brisban', 'Brisban', 'Australia', '0774652350', '7500.00', 5);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Karl', 'London', 'London', 'UK', '0774652350', '7500.00', 5);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Shilton', 'Torento', 'Torento', 'Canada', '0774652350', '7500.00', 5);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Charles', 'Hampshair', 'Hampshair', 'UK', '0774652350', '7500.00', 5);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Srinivas', 'Bangalore', 'Bangalore', 'India', '0774652350', '7500.00', 6);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Steven', 'San Jose', 'San Jose', 'USA', '0774652350', '7500.00', 5);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Karolina', 'Torento', 'Torento', 'Canada', '0774652350', '7500.00', 7);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Martin', 'Torento', 'Torento', 'Canada', '0774652350', '7500.00', 7);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Ramesh', 'Mumbai', 'Mumbai', 'India', '0774652350', '7500.00', 8);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Rangarappa', 'Bangalore', 'Bangalore', 'India', '0774652350', '7500.00', 9);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Venkatpati', 'Bangalore', 'Bangalore', 'India', '0774652350', '7500.00', 10);
+INSERT INTO customer (customer_name, customer_city, working_area, customer_country, customer_phone, customer_monthly_amount, customer_agent_id) VALUES ('Sundariya', 'Chennai', 'Chennai', 'India', '0774652350', '7500.00', 11);
 
-INSERT INTO CUSTOMER VALUES ('Holmes', 'London', 'London', 'UK', '2', '6000.00', '5000.00', '7000.00', '4000.00', 'BBBBBBB', 1);
-INSERT INTO CUSTOMER VALUES ('Micheal', 'New York', 'New York', 'USA', '2', '3000.00', '5000.00', '2000.00', '6000.00', 'CCCCCCC', 2);
-INSERT INTO CUSTOMER VALUES ('Albert', 'New York', 'New York', 'USA', '3', '5000.00', '7000.00', '6000.00', '6000.00', 'BBBBSBB', 2);
-INSERT INTO CUSTOMER VALUES ('Ravindran', 'Bangalore', 'Bangalore', 'India', '2', '5000.00', '7000.00', '4000.00', '8000.00', 'AVAVAVA', 3);
-INSERT INTO CUSTOMER VALUES ('Cook', 'London', 'London', 'UK', '2', '4000.00', '9000.00', '7000.00', '6000.00', 'FSDDSDF', 4);
-INSERT INTO CUSTOMER VALUES ('Stuart', 'London', 'London', 'UK', '1', '6000.00', '8000.00', '3000.00', '11000.00', 'GFSGERS', 5);
-INSERT INTO CUSTOMER VALUES ('Bolt', 'New York', 'New York', 'USA', '3', '5000.00', '7000.00', '9000.00', '3000.00', 'DDNRDRH', 2);
-INSERT INTO CUSTOMER VALUES ('Fleming', 'Brisban', 'Brisban', 'Australia', '2', '7000.00', '7000.00', '9000.00', '5000.00', 'NHBGVFC', 6);
-INSERT INTO CUSTOMER VALUES ('Jacks', 'Brisban', 'Brisban', 'Australia', '1', '7000.00', '7000.00', '7000.00', '7000.00', 'WERTGDF', 6);
-INSERT INTO CUSTOMER VALUES ('Yearannaidu', 'Chennai', 'Chennai', 'India', '1', '8000.00', '7000.00', '7000.00', '8000.00', 'ZZZZBFV', 7);
-INSERT INTO CUSTOMER VALUES ('Sasikant', 'Mumbai', 'Mumbai', 'India', '1', '7000.00', '11000.00', '7000.00', '11000.00', '147-25896312', 8);
-INSERT INTO CUSTOMER VALUES ('Ramanathan', 'Chennai', 'Chennai', 'India', '1', '7000.00', '11000.00', '9000.00', '9000.00', 'GHRDWSD', 7);
-INSERT INTO CUSTOMER VALUES ('Avinash', 'Mumbai', 'Mumbai', 'India', '2', '7000.00', '11000.00', '9000.00', '9000.00', '113-12345678',8);
-INSERT INTO CUSTOMER VALUES ('Winston', 'Brisban', 'Brisban', 'Australia', '1', '5000.00', '8000.00', '7000.00', '6000.00', 'AAAAAAA', 6);
-INSERT INTO CUSTOMER VALUES ('Karl', 'London', 'London', 'UK', '0', '4000.00', '6000.00', '7000.00', '3000.00', 'AAAABAA', 4);
-INSERT INTO CUSTOMER VALUES ('Shilton', 'Torento', 'Torento', 'Canada', '1', '10000.00', '7000.00', '6000.00', '11000.00', 'DDDDDDD', 9);
-INSERT INTO CUSTOMER VALUES ('Charles', 'Hampshair', 'Hampshair', 'UK', '3', '6000.00', '4000.00', '5000.00', '5000.00', 'MMMMMMM', 10);
-INSERT INTO CUSTOMER VALUES ('Srinivas', 'Bangalore', 'Bangalore', 'India', '2', '8000.00', '4000.00', '3000.00', '9000.00', 'AAAAAAB', 11);
-INSERT INTO CUSTOMER VALUES ('Steven', 'San Jose', 'San Jose', 'USA', '1', '5000.00', '7000.00', '9000.00', '3000.00', 'KRFYGJK', 12);
-INSERT INTO CUSTOMER VALUES ('Karolina', 'Torento', 'Torento', 'Canada', '1', '7000.00', '7000.00', '9000.00', '5000.00', 'HJKORED', 9);
-INSERT INTO CUSTOMER VALUES ('Martin', 'Torento', 'Torento', 'Canada', '2', '8000.00', '7000.00', '7000.00', '8000.00', 'MJYURFD', 9);
-INSERT INTO CUSTOMER VALUES ('Ramesh', 'Mumbai', 'Mumbai', 'India', '3', '8000.00', '7000.00', '3000.00', '12000.00', 'Phone No', 8);
-INSERT INTO CUSTOMER VALUES ('Rangarappa', 'Bangalore', 'Bangalore', 'India', '2', '8000.00', '11000.00', '7000.00', '12000.00', 'AAAATGF', 1);
-INSERT INTO CUSTOMER VALUES ('Venkatpati', 'Bangalore', 'Bangalore', 'India', '2', '8000.00', '11000.00', '7000.00', '12000.00', 'JRTVFDD', 11);
-INSERT INTO CUSTOMER VALUES ('Sundariya', 'Chennai', 'Chennai', 'India', '3', '7000.00', '11000.00', '7000.00', '11000.00', 'PPHGRTS', 7);
-
+/*
 
 CREATE TABLE  "ORDERS" 
    (
@@ -114,6 +112,8 @@ INSERT INTO ORDERS VALUES('200128', '3500.00', '1500.00', '07/20/2008', 'C00009'
 INSERT INTO ORDERS VALUES('200135', '2000.00', '800.00', '09/16/2008', 'C00007', 2, 'SOD');
 INSERT INTO ORDERS VALUES('200131', '900.00', '150.00', '08/26/2008', 'C00012', 5, 'SOD');
 INSERT INTO ORDERS VALUES('200133', '1200.00', '400.00', '06/29/2008', 'C00009', 4, 'SOD');
+
+*/
 
 
 
